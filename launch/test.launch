@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="nodelet" type="nodelet" name="ar_robot_manager" args="manager"/>
+
+  <node pkg="ar_robot_localization" type="ar_robot_loc_node" name="ar_robot_loc"/>
+</launch>
