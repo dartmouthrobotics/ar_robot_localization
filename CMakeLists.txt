@@ -1,46 +1,76 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ar_robot_localization)
+project(bluerov_visual_pose)
 
-find_package(catkin REQUIRED COMPONENTS roscpp nodelet roslint)
+add_compile_options(-std=c++11)
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  nodelet
+  pluginlib
+  tf
+  roslint
+)
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES ar_robot_loc_nodelet
-  CATKIN_DEPENDS nodelet roscpp
+  LIBRARIES visual_pose_nodelet
+  CATKIN_DEPENDS roscpp
+                 nodelet
+                 pluginlib
 )
 
-include_directories(
-  include
+
+include_directories(include
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(ar_robot_loc_nodelet
-  src/ar_robot_loc_nodelet.cpp
+
+add_executable(pose_node
+  src/pose_node.cpp
 )
-target_link_libraries(ar_robot_loc_nodelet
+
+add_dependencies(pose_node
+  ${catkin_EXPORTED_TARGETS}
+)
+
+target_link_libraries(pose_node
   ${catkin_LIBRARIES}
 )
 
-add_executable(ar_robot_loc_node
-  src/ar_robot_loc_node.cpp
+
+add_library(visual_pose_nodelet
+  src/pose_nodelet.cpp
 )
-target_link_libraries(ar_robot_loc_node
+
+add_dependencies(visual_pose_nodelet
+  ${catkin_EXPORTED_TARGETS}
+)
+
+target_link_libraries(visual_pose_nodelet
   ${catkin_LIBRARIES}
 )
 
 roslint_cpp()
 
-install(TARGETS ar_robot_loc_node ar_robot_loc_nodelet
-	RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-	LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-	ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
-
+install(TARGETS visual_pose_nodelet pose_node
+        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
+install(DIRECTORY plugins
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 install(DIRECTORY launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-install(FILES nodelets.xml
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_pa1.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)

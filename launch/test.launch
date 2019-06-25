@@ -1,6 +1,10 @@
-<?xml version="1.0"?>
 <launch>
-  <node pkg="nodelet" type="nodelet" name="ar_robot_manager" args="manager"/>
+  
+  <!-- This is for running only nodelet -->
+  <!-- <node pkg="nodelet" type="nodelet" name="standalone_nodelet" args="manager" output="screen"/> -->
+  <!-- <node pkg="nodelet" type="nodelet" name="VisualPoseNodelet" args="load bluerov_visual_pose/VisualPoseNodelet standalone_nodelet" output="screen"/> -->
 
-  <node pkg="ar_robot_localization" type="ar_robot_loc_node" name="ar_robot_loc"/>
+  <!-- This is for running a wrapper node -->
+  <node pkg="bluerov_visual_pose" type="pose_node" name="visual_pose" output="screen"/>
+
 </launch>

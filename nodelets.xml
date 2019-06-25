@@ -1,9 +1,0 @@
-<library path="lib/libar_robot_loc_nodelet">
-  <class name="ar_robot_localization/ar_robot_loc_nodelet"
-         type="ar_robot_localization::ArRobotLocNodelet"
-         base_class_type="nodelet::Nodelet">
-      <description>
-          AR Robot Localization Nodelet.
-      </description>
-  </class>
-</library>

@@ -1,0 +1,7 @@
+<library path="lib/libvisual_pose_nodelet">
+  <class name="bluerov_visual_pose/VisualPoseNodelet" type="bluerov_visual_pose::VisualPoseNodelet" base_class_type="nodelet::Nodelet">
+  <description>
+    To Do.
+  </description>
+  </class>
+</library>
