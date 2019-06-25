@@ -52,8 +52,8 @@ class VisualPose
       {
         if (depth_detected)
         {
-          broadcast_new_frame(); // publish a new frame; currently just the depth
-          pub_robot_pose(); // publish the robot pose to a rostopic
+          broadcast_new_frame();  // publish a new frame; currently just the depth
+          pub_robot_pose();  // publish the robot pose to a rostopic
         }
 
         rate.sleep();
@@ -125,9 +125,9 @@ class VisualPose
             // trans.setOrigin( tf::Vector3(0.0, 0.0, depth + translation.z()) );
             // trans.setRotation( rotation );
             // std::cout << depth << std::endl;
-            trans.setOrigin( tf::Vector3(0.0, 0.0, depth) );
-            trans.setRotation( tf::Quaternion(0, 0, 0, 1) );
-            br_.sendTransform( tf::StampedTransform(trans, ros::Time::now(), "/base_link", "/depth") );
+            trans.setOrigin(tf::Vector3(0.0, 0.0, depth));
+            trans.setRotation(tf::Quaternion(0, 0, 0, 1));
+            br_.sendTransform(tf::StampedTransform(trans, ros::Time::now(), "/base_link", "/depth"));
 
             tag_detected = true;
         }
